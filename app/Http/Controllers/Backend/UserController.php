@@ -17,7 +17,6 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-
         $search = '';
 
         if ($request->has('search')) {
@@ -25,19 +24,19 @@ class UserController extends Controller
             $search = $request->search;
 
             $userBuilder = User::query()
-            ->where('username', 'like', "%{$request->search}%")
-            ->orWhere('email', 'like', "%{$request->search}%")
-            ->orWhere('first_name', 'like', "%{$request->search}%")
-            ->orWhere('last_name', 'like', "%{$request->search}%");
+                ->where('username', 'like', "%{$search}%")
+                ->orWhere('email', 'like', "%{$search}%")
+                ->orWhere('first_name', 'like', "%{$search}%")
+                ->orWhere('last_name', 'like', "%{$search}%");
         } else {
             $userBuilder = User::query();
         }
 
         $users = $userBuilder
-        ->orderBy('last_name', 'asc')
-        ->orderBy('first_name', 'asc')
-        ->orderBy('id', 'asc')
-        ->get();
+            ->orderBy('last_name', 'asc')
+            ->orderBy('first_name', 'asc')
+            ->orderBy('id', 'asc')
+            ->get();
 
         return view('users.index', compact('users', 'search'));
     }
