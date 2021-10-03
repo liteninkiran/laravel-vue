@@ -3,16 +3,17 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Country;
+use App\Models\User;
 
-class CountrySeeder extends Seeder
+class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      *
      * @return void
      */
-    public function run() {
-        Country::factory(10)->create();
+    public function run()
+    {
+        User::factory(5)->create();
     }
 }
