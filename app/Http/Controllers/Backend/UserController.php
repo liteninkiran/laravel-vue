@@ -14,16 +14,31 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        // Retrieve all users
-        $users = User::query()
-            ->orderBy('last_name', 'asc')
-            ->orderBy('first_name', 'asc')
-            ->orderBy('id', 'asc')
-            ->get();
 
-            return view('users.index', compact('users'));
+        $search = '';
+
+        if ($request->has('search')) {
+
+            $search = $request->search;
+
+            $userBuilder = User::query()
+            ->where('username', 'like', "%{$request->search}%")
+            ->orWhere('email', 'like', "%{$request->search}%")
+            ->orWhere('first_name', 'like', "%{$request->search}%")
+            ->orWhere('last_name', 'like', "%{$request->search}%");
+        } else {
+            $userBuilder = User::query();
+        }
+
+        $users = $userBuilder
+        ->orderBy('last_name', 'asc')
+        ->orderBy('first_name', 'asc')
+        ->orderBy('id', 'asc')
+        ->get();
+
+        return view('users.index', compact('users', 'search'));
     }
 
     /**
