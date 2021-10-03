@@ -50,7 +50,7 @@
                         <th scope="col">Last Name</th>
                         <th scope="col">Username</th>
                         <th scope="col">Email</th>
-                        <th scope="col">Manage</th>
+                        <th scope="col" colspan="2">Manage</th>
                     </tr>
                 </thead>
 
@@ -63,7 +63,20 @@
                             <td>{{ $user->last_name }}</td>
                             <td>{{ $user->username }}</td>
                             <td>{{ $user->email }}</td>
-                            <td><a href="{{ route('users.edit', $user->id) }}" class="btn btn-success">Edit</a></td>
+                            <td>
+                                <a href="{{ route('users.edit', $user->id) }}" class="btn btn-success">Edit</a>
+
+                            </td>
+
+                            <td>
+                                <form method="POST" action="{{ route('users.destroy', $user->id) }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-danger">Delete</button>
+                                </form>
+                            </td>
+
+
                         </tr>
                     @endforeach
                 </tbody>
