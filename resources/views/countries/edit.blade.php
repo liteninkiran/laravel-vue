@@ -102,7 +102,7 @@
                         @method('DELETE')
 
                         {{-- Submit Button --}}
-                        <button class="btn btn-danger">Delete {{ $country->name }}</button>
+                        <button class="btn btn-danger">Delete {{ $country->country_code }}</button>
 
                     </form>
 

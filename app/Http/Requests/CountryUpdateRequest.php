@@ -26,7 +26,7 @@ class CountryUpdateRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255', Rule::unique('countries')->ignore($this->country->id)],
-            'country_code' => ['required', 'string', 'max:255', Rule::unique('countries')->ignore($this->country->id)],
+            'country_code' => ['required', 'string', 'max:5', Rule::unique('countries')->ignore($this->country->id)],
         ];
     }
 }
