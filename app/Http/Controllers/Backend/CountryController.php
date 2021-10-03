@@ -41,7 +41,7 @@ class CountryController extends Controller
      */
     public function create()
     {
-        //
+        return view('countries.create');
     }
 
     /**
@@ -52,16 +52,21 @@ class CountryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Country::create([
+            'name' => $request->name,
+            'country_code' => $request->country_code,
+        ]);
+
+        return redirect()->route('countries.index')->with('message', 'Country Created Succesfully');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Country $country
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Country $country)
     {
         //
     }
@@ -69,34 +74,40 @@ class CountryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Country $country
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Country $country)
     {
-        //
+        return view('countries.edit', compact('country'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Country $country
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Country $country)
     {
-        //
+        $country->update([
+            'name' => $request->name,
+            'country_code' => $request->country_code,
+        ]);
+
+        return redirect()->route('countries.index')->with('message', 'Country Updated Succesfully');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Country $country
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Country $country)
     {
-        //
+        $country->delete();
+        return redirect()->route('countries.index')->with('message', 'Country Deleted Succesfully');
     }
 }

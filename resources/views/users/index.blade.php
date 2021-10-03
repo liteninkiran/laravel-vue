@@ -54,7 +54,7 @@
                 {{-- Table Header Row --}}
                 <thead>
                     <tr>
-                        <th scope="col">#Id</th>
+                        <th scope="col">ID</th>
                         <th scope="col">First Name</th>
                         <th scope="col">Last Name</th>
                         <th scope="col">Username</th>

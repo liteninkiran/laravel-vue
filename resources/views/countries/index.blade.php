@@ -4,7 +4,7 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Users</h1>
+        <h1 class="h3 mb-0 text-gray-800">Countries</h1>
     </div>
 
     <div class="card mx-auto">
@@ -54,7 +54,7 @@
                 {{-- Table Header Row --}}
                 <thead>
                     <tr>
-                        <th scope="col">#Id</th>
+                        <th scope="col">ID</th>
                         <th scope="col">Country Code</th>
                         <th scope="col">Name</th>
                         <th scope="col" colspan="2">Manage</th>
