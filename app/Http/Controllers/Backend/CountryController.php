@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Country;
+use App\Http\Requests\CountryUpdateRequest;
+use App\Http\Requests\CountryStoreRequest;
 
 class CountryController extends Controller
 {
@@ -50,7 +52,7 @@ class CountryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CountryStoreRequest $request)
     {
         Country::create([
             'name' => $request->name,
@@ -89,7 +91,7 @@ class CountryController extends Controller
      * @param  Country $country
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Country $country)
+    public function update(CountryUpdateRequest $request, Country $country)
     {
         $country->update([
             'name' => $request->name,
