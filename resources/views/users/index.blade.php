@@ -9,6 +9,15 @@
 
     <div class="card mx-auto">
 
+        {{-- Show messages --}}
+        <div>
+            @if (session()->has('message'))
+                <div class="alert alert-success">
+                    {{ session('message') }}
+                </div>
+            @endif
+        </div>
+
         {{-- Top Bar --}}
         <div class="card-header">
 
