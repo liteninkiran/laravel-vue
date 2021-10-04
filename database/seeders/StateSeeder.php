@@ -14,6 +14,6 @@ class StateSeeder extends Seeder
      */
     public function run()
     {
-        State::factory(100)->create();
+        State::factory(10)->create();
     }
 }

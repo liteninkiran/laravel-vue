@@ -18,6 +18,8 @@ class CreateStatesTable extends Migration
             $table->foreignId('country_id')->constrained();
             $table->string('name');
             $table->timestamps();
+
+            $table->unique(['country_id', 'name']);
         });
     }
 

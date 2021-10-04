@@ -22,9 +22,26 @@ class StateFactory extends Factory
      */
     public function definition()
     {
+        // Retrieve a random country 
         $country = Country::all()->random();
+
+        // Generate a random state
+        $name = $this->faker->state();
+
+        // Search by state and country
+        $state = State::query()
+            ->where('country_id', '=', $country->id)
+            ->where('name', '=', $name)
+            ->first();
+
+        // If we have a record already, delete it
+        if ($state) {
+            error_log('Deleted: ' . $state->name);
+            $state->delete();
+        }
+
         return [
-            'name' => $this->faker->state(),
+            'name' => $name,
             'country_id' => $country->id,
         ];
     }

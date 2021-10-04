@@ -17,20 +17,41 @@ class StateController extends Controller {
 
         $search = $request->has('search') ? $request->search : '';
 
-        $states = State::query()
+        // Return requested state records
+        $queryBuilder = State::query()
+
+        // Conditionally include WHERE clasue
         ->when($search, function($query) use ($search) {
+
+            // Using orWhere requires grouping
             return $query->where(function ($q) use ($search) {
-                    $q->where('states.name', 'like', "%{$search}%")
-                      ->orWhereExists(function($q2) use ($search) {
-                          $q2->selectRaw(1)
-                             ->from('countries')
-                             ->whereRaw("`countries`.`id` = `states`.`country_id` AND `countries`.`name` LIKE '%{$search}%'");
+
+                    $q->query()
+                        // Check the state name
+                        ->where('states.name', 'like', "%{$search}%")
+
+                        // Check the country name
+                        ->orWhereExists(function($q2) use ($search) {
+                            $q2->selectRaw(1)
+                                ->from('countries')
+                                ->whereRaw("`countries`.`id` = `states`.`country_id` AND `countries`.`name` LIKE '%{$search}%'");
                       });
                 });
             })
-        ->orderBy('country_id', 'asc')
-        ->orderBy('name', 'asc')
-        ->get();
+
+        // Join to countries to order properly
+        ->join('countries', 'countries.id', '=', 'states.country_id')
+
+        // Order by country
+        ->orderBy('countries.name', 'asc')
+
+        // Order by state
+        ->orderBy('states.name', 'asc')
+
+        // Avoid getting duplicates by only selecting the states
+        ->select('states.*');
+
+        $states = $queryBuilder->get();
 
         return view('states.index', compact('states', 'search'));
     }
