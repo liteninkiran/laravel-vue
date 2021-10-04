@@ -3,9 +3,6 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-// use App\Models\Country;
-// use App\Models\State;
-// use App\Models\User;
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,6 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             CountrySeeder::class,
             StateSeeder::class,
+            CitySeeder::class,
             UserSeeder::class,
         ]);
     }
