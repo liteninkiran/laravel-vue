@@ -8,12 +8,21 @@
     </div>
 
     <div class="container">
+
         <div class="row justify-content-center">
+
             <div class="col-md-8">
+
                 <div class="card">
+
+                    {{-- Sub Heading --}}
                     <div class="card-header">
+
                         {{ __('Country') }}
+
+                        {{-- Back Button --}}
                         <a href="{{ route('countries.index') }}" class="float-right">Back</a>
+
                     </div>
     
                     <div class="card-body">
@@ -23,6 +32,7 @@
     
                             {{-- Token --}}
                             @csrf
+
 
                             {{-- Country Name --}}
                             <div class="form-group row">

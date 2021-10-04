@@ -98,21 +98,30 @@ class StateController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(int $id)
     {
-        //
+        $countries = Country::query()
+            ->orderBy('name', 'asc')
+            ->get();
+        $state = State::withCount('employees')->findOrFail($id);
+        return view('states.edit', compact('state', 'countries'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  State $state
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, State $state)
     {
-        //
+        $state->update([
+            'name' => $request->name,
+            'country_id' => $request->country_id,
+        ]);
+
+        return redirect()->route('states.index')->with('message', 'State Updated Successfully');
     }
 
     /**

@@ -34,7 +34,6 @@
                             @csrf
                             @method('PUT')
 
-
                             {{-- Country Name --}}
                             <div class="form-group row">
 
@@ -74,7 +73,6 @@
                                 </div>
 
                             </div>
-
 
                             {{-- Submit Button --}}
                             <div class="form-group row mb-0">
