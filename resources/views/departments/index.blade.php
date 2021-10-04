@@ -11,7 +11,7 @@
 
         {{-- Create Record --}}
         <div class="ml-auto">
-            <a href="{{ route('states.create') }}" class="btn btn-primary mb-2">Create</a>
+            <a href="{{ route('departments.create') }}" class="btn btn-primary mb-2">Create</a>
         </div>
 
     </div>

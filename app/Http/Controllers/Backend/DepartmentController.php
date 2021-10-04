@@ -41,20 +41,22 @@ class DepartmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function create() {
+        return view('departments.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Requests\DepartmentStoreRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(DepartmentStoreRequest $request)
-    {
-        //
+    public function store(DepartmentStoreRequest $request) {
+        Department::create([
+            'name' => $request->name,
+        ]);
+
+        return redirect()->route('departments.index')->with('message', 'Department Created Successfully');
     }
 
     /**
