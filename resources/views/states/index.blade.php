@@ -105,14 +105,12 @@
                             </td>
 
                             <td>
-                                @if ($state->employees_count === 0)
+                                @if ($state->employees_count === 0 && $state->cities_count === 0)
                                     <form method="POST" action="{{ route('states.destroy', $state->id) }}">
                                         @csrf
                                         @method('DELETE')
                                         <button class="btn btn-danger">Delete</button>
                                     </form>
-                                @else
-                                    {{ $state->employees_count }}
                                 @endif
                             </td>
 

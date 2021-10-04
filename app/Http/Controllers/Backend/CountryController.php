@@ -23,14 +23,15 @@ class CountryController extends Controller
             $search = $request->search;
 
             $countryBuilder = Country::query()
-                ->withCount('states')
                 ->where('name', 'like', "%{$search}%");
         } else {
-            $countryBuilder = Country::query()
-                ->withCount('states');
+            $countryBuilder = Country::query();
         }
 
         $countries = $countryBuilder
+            ->withCount('states')
+            ->withCount('cities')
+            ->withCount('employees')
             ->orderBy('name', 'asc')
             ->get();
 
@@ -111,9 +112,13 @@ class CountryController extends Controller
      */
     public function destroy(int $id)
     {
-        $country = Country::withCount('states')->findOrFail($id);
+        $country = Country::query()
+            ->withCount('states')
+            ->withCount('cities')
+            ->withCount('employees')
+            ->findOrFail($id);
 
-        if ($country->states_count === 0) {
+        if ($country->states_count === 0 && $country->employees_count === 0) {
             $country->delete();
             return redirect()->route('countries.index')->with('message', 'Country Deleted Successfully');
         }

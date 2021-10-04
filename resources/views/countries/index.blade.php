@@ -74,7 +74,7 @@
                             </td>
 
                             <td>
-                                @if ($country->states_count === 0)
+                                @if ($country->states_count === 0 && $country->employees_count === 0)
                                     <form method="POST" action="{{ route('countries.destroy', $country->id) }}">
                                         @csrf
                                         @method('DELETE')

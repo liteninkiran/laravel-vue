@@ -49,7 +49,10 @@ class StateController extends Controller {
         // Avoid getting duplicates by only selecting the states
         ->select('states.*');
 
-        $states = $queryBuilder->withCount('employees')->get();
+        $states = $queryBuilder
+            ->withCount('cities')
+            ->withCount('employees')
+            ->get();
 
         return view('states.index', compact('states', 'search', 'countries', 'country_id'));
     }
@@ -133,9 +136,12 @@ class StateController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy(int $id) {
-        $state = State::withCount('employees')->findOrFail($id);
+        $state = State::query()
+            ->withCount('cities')
+            ->withCount('employees')
+            ->findOrFail($id);
 
-        if ($state->employees_count === 0) {
+        if ($state->employees_count === 0 && $state->cities_count === 0) {
             $state->delete();
             return redirect()->route('states.index')->with('message', 'State Deleted Successfully');
         }
