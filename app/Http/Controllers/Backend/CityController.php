@@ -133,19 +133,28 @@ class CityController extends Controller
      */
     public function edit($id)
     {
-        //
+        $states = State::query()
+            ->orderBy('name', 'asc')
+            ->get();
+        $city = City::withCount('employees')->findOrFail($id);
+        return view('cities.edit', compact('city', 'states'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Requests\CityUpdateRequest $request
+     * @param  City $city
      * @return \Illuminate\Http\Response
      */
-    public function update(CityUpdateRequest $request, $id)
+    public function update(CityUpdateRequest $request, City $city)
     {
-        //
+        $city->update([
+            'name' => $request->name,
+            'state_id' => $request->state_id,
+        ]);
+
+        return redirect()->route('cities.index')->with('message', 'City Updated Successfully');
     }
 
     /**
