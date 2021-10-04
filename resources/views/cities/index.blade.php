@@ -134,6 +134,10 @@
 
             </table>
 
+            <div class="pagination-block">
+                {{ $cities->links('layouts.pagination') }}
+            </div>
+
         </div>
 
     </div>

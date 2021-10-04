@@ -33,7 +33,7 @@ class CountryController extends Controller
             ->withCount('cities')
             ->withCount('employees')
             ->orderBy('name', 'asc')
-            ->get();
+            ->paginate(env('PAGINATION_LENGTH'));
 
         return view('countries.index', compact('countries', 'search'));
     }

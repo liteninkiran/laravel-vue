@@ -92,6 +92,10 @@
 
             </table>
 
+            <div class="pagination-block">
+                {{ $users->links('layouts.pagination') }}
+            </div>
+
         </div>
 
     </div>

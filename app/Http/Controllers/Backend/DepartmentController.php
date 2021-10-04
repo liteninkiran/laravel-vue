@@ -31,7 +31,7 @@ class DepartmentController extends Controller
         $departments = $queryBuilder
             ->withCount('employees')
             ->orderBy('name', 'asc')
-            ->get();
+            ->paginate(env('PAGINATION_LENGTH'));
 
         return view('departments.index', compact('departments', 'search'));
     }

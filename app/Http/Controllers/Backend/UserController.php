@@ -37,7 +37,7 @@ class UserController extends Controller
             ->orderBy('last_name', 'asc')
             ->orderBy('first_name', 'asc')
             ->orderBy('id', 'asc')
-            ->get();
+            ->paginate(env('PAGINATION_LENGTH'));
 
         return view('users.index', compact('users', 'search'));
     }

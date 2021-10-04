@@ -81,7 +81,7 @@ class CityController extends Controller
         // Retrieve the data
         $cities = $queryBuilder
             ->withCount('employees')
-            ->get();
+            ->paginate(env('PAGINATION_LENGTH'));
 
         return view('cities.index', compact('cities', 'states', 'countries', 'search', 'country_id', 'state_id'));
     }

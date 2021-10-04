@@ -109,6 +109,10 @@
 
             </table>
 
+            <div class="pagination-block">
+                {{ $departments->links('layouts.pagination') }}
+            </div>
+
         </div>
 
     </div>

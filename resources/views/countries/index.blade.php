@@ -88,6 +88,10 @@
 
             </table>
 
+            <div class="pagination-block">
+                {{ $countries->links('layouts.pagination') }}
+            </div>
+
         </div>
 
     </div>

@@ -122,6 +122,10 @@
 
             </table>
 
+            <div class="pagination-block">
+                {{ $states->links('layouts.pagination') }}
+            </div>
+
         </div>
 
     </div>

@@ -52,7 +52,7 @@ class StateController extends Controller {
         $states = $queryBuilder
             ->withCount('cities')
             ->withCount('employees')
-            ->get();
+            ->paginate(env('PAGINATION_LENGTH'));
 
         return view('states.index', compact('states', 'search', 'countries', 'country_id'));
     }
