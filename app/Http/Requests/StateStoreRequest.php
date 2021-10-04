@@ -25,7 +25,7 @@ class StateStoreRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255', 'unique:states'],
-            'country_id' => ['required', 'integer', 'exists:countries'],
+            'country_id' => ['required', 'integer', 'exists:countries,id'],
         ];
     }
 }
