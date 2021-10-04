@@ -6,7 +6,7 @@
 
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">States</h1>
+            <h1 class="h3 mb-0 text-gray-800">Departments</h1>
         </div>
 
         {{-- Create Record --}}
@@ -35,23 +35,13 @@
                 {{-- Filters --}}
                 <div class="col">
 
-                    <form method="GET" action="{{ route('states.index') }}">
+                    <form method="GET" action="{{ route('departments.index') }}">
 
-                        <div class="form-row">
+                        <div class="form-row align-items-center">
 
-                            {{-- Country Drop-Down --}}
+                            {{-- Search Department --}}
                             <div class="col" style="flex: 5;">
-                                <select id="search_country" name="country_id" class="form-control" aria-label="Default select example">
-                                    <option {{ $country_id === null ? 'selected' : '' }} value="">Select Country</option>
-                                    @foreach ($countries as $country)
-                                        <option {{ $country_id === $country->id ? 'selected' : '' }} value="{{ $country->id }}">{{ $country->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            {{-- Search State --}}
-                            <div class="col" style="flex: 5;">
-                                <input type="search" name="search" class="form-control mb-2" id="search_state" placeholder="Search states" value="{{ $search }}">
+                                <input type="search" name="search" class="form-control mb-2" id="search_department" placeholder="Search departments" value="{{ $search }}">
                             </div>
 
                             {{-- Submit Button --}}
@@ -61,14 +51,14 @@
 
                             {{-- Clear Form --}}
                             <div class="col" style="flex: 1.2;">
-                                <button class="btn btn-primary mb-2" onclick="document.getElementById('search_country').value = ''; document.getElementById('search_state').value = null;">
+                                <button class="btn btn-primary mb-2" onclick="document.getElementById('search_department').value = '';">
                                     CLEAR
                                 </button>
                             </div>
 
                             {{-- Spacing --}}
                             <div style="flex: 10;">&nbsp;</div>
-
+                            
                         </div>
 
                     </form>
@@ -79,7 +69,7 @@
 
         </div>
 
-        {{-- States --}}
+        {{-- Departments --}}
         <div class="card-body">
 
             <table class="table">
@@ -88,7 +78,6 @@
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
-                        <th scope="col">Country</th>
                         <th scope="col">Name</th>
                         <th scope="col" colspan="2">Manage</th>
                     </tr>
@@ -96,26 +85,24 @@
 
                 {{-- Table Data --}}
                 <tbody>
-                    @foreach ($states as $state)
+                    @foreach ($departments as $department)
                         <tr>
-                            <th scope="row">{{ $state->id }}</th>
-                            <td>{{ $state->country->name }}</td>
-                            <td>{{ $state->name }}</td>
+                            <th scope="row">{{ $department->id }}</th>
+                            <td>{{ $department->name }}</td>
                             <td>
-                                <a href="{{ route('states.edit', $state->id) }}" class="btn btn-success">Edit</a>
+                                <a href="{{ route('departments.edit', $department->id) }}" class="btn btn-success">Edit</a>
 
                             </td>
 
                             <td>
-                                @if ($state->employees_count === 0 && $state->cities_count === 0)
-                                    <form method="POST" action="{{ route('states.destroy', $state->id) }}">
+                                @if ($department->employees_count === 0)
+                                    <form method="POST" action="{{ route('departments.destroy', $department->id) }}">
                                         @csrf
                                         @method('DELETE')
                                         <button class="btn btn-danger">Delete</button>
                                     </form>
                                 @endif
                             </td>
-
                         </tr>
                     @endforeach
                 </tbody>

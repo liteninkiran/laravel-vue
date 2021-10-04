@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Department;
+use App\Http\Requests\DepartmentUpdateRequest;
+use App\Http\Requests\DepartmentStoreRequest;
 
 class DepartmentController extends Controller
 {
@@ -12,9 +15,25 @@ class DepartmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index(Request $request) {
+        $search = '';
+
+        if ($request->has('search')) {
+
+            $search = $request->search;
+
+            $queryBuilder = Department::query()
+                ->where('name', 'like', "%{$search}%");
+        } else {
+            $queryBuilder = Department::query();
+        }
+
+        $departments = $queryBuilder
+            ->withCount('employees')
+            ->orderBy('name', 'asc')
+            ->get();
+
+        return view('departments.index', compact('departments', 'search'));
     }
 
     /**
@@ -33,7 +52,7 @@ class DepartmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DepartmentStoreRequest $request)
     {
         //
     }
@@ -67,7 +86,7 @@ class DepartmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(DepartmentUpdateRequest $request, $id)
     {
         //
     }
