@@ -91,9 +91,12 @@ class CityController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function create() {
+        $states = State::query()
+            ->orderBy('name', 'asc')
+            ->get();
+
+        return view('cities.create', compact('states'));
     }
 
     /**
@@ -102,9 +105,13 @@ class CityController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(CityStoreRequest $request) {
+        City::create([
+            'name' => $request->name,
+            'state_id' => $request->state_id,
+        ]);
+
+        return redirect()->route('cities.index')->with('message', 'City Created Successfully');
     }
 
     /**
@@ -136,7 +143,7 @@ class CityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CityUpdateRequest $request, $id)
     {
         //
     }
