@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\State;
 use App\Models\Country;
+use App\Http\Requests\StateUpdateRequest;
+use App\Http\Requests\StateStoreRequest;
 
 class StateController extends Controller {
     /**
@@ -71,7 +73,7 @@ class StateController extends Controller {
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StateStoreRequest $request)
     {
         State::create([
             'name' => $request->name,
@@ -114,7 +116,7 @@ class StateController extends Controller {
      * @param  State $state
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, State $state)
+    public function update(StateUpdateRequest $request, State $state)
     {
         $state->update([
             'name' => $request->name,
