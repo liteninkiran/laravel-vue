@@ -96,7 +96,7 @@
                 </div>
 
                 {{-- Delete Record --}}
-                @if ($state->employees_count === 0)
+                @if ($state->employees_count === 0 && $state->cities_count === 0)
                     <div class="m-2 p-2">
 
                         {{-- Form --}}

@@ -76,8 +76,7 @@ class StateController extends Controller {
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StateStoreRequest $request)
-    {
+    public function store(StateStoreRequest $request) {
         State::create([
             'name' => $request->name,
             'country_id' => $request->country_id,
@@ -87,28 +86,19 @@ class StateController extends Controller {
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(int $id)
-    {
+    public function edit(int $id) {
+        $state = State::query()
+            ->withCount('cities')
+            ->withCount('employees')
+            ->findOrFail($id);
         $countries = Country::query()
             ->orderBy('name', 'asc')
             ->get();
-        $state = State::withCount('employees')->findOrFail($id);
         return view('states.edit', compact('state', 'countries'));
     }
 
@@ -119,8 +109,7 @@ class StateController extends Controller {
      * @param  State $state
      * @return \Illuminate\Http\Response
      */
-    public function update(StateUpdateRequest $request, State $state)
-    {
+    public function update(StateUpdateRequest $request, State $state) {
         $state->update([
             'name' => $request->name,
             'country_id' => $request->country_id,

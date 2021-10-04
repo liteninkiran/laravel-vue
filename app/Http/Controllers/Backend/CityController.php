@@ -118,24 +118,12 @@ class CityController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id) {
         $states = State::query()
             ->join('countries', 'countries.id', '=', 'states.country_id')
             ->orderBy('countries.country_code', 'asc')
@@ -153,8 +141,7 @@ class CityController extends Controller
      * @param  City $city
      * @return \Illuminate\Http\Response
      */
-    public function update(CityUpdateRequest $request, City $city)
-    {
+    public function update(CityUpdateRequest $request, City $city) {
         $city->update([
             'name' => $request->name,
             'state_id' => $request->state_id,

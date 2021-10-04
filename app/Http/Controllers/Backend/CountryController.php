@@ -43,8 +43,7 @@ class CountryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         return view('countries.create');
     }
 
@@ -54,8 +53,7 @@ class CountryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CountryStoreRequest $request)
-    {
+    public function store(CountryStoreRequest $request) {
         Country::create([
             'name' => $request->name,
             'country_code' => $request->country_code,
@@ -65,25 +63,17 @@ class CountryController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  Country $country
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Country $country)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(int $id)
-    {
-        $country = Country::withCount('states')->findOrFail($id);
+    public function edit(int $id) {
+        $country = Country::query()
+            ->withCount('states')
+            ->withCount('cities')
+            ->withCount('employees')
+            ->findOrFail($id);
         return view('countries.edit', compact('country'));
     }
 
@@ -94,8 +84,7 @@ class CountryController extends Controller
      * @param  Country $country
      * @return \Illuminate\Http\Response
      */
-    public function update(CountryUpdateRequest $request, Country $country)
-    {
+    public function update(CountryUpdateRequest $request, Country $country) {
         $country->update([
             'name' => $request->name,
             'country_code' => $request->country_code,
@@ -110,8 +99,7 @@ class CountryController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(int $id)
-    {
+    public function destroy(int $id) {
         $country = Country::query()
             ->withCount('states')
             ->withCount('cities')

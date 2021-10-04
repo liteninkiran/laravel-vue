@@ -90,7 +90,7 @@
                 </div>
 
                 {{-- Delete Record --}}
-                @if ($country->states_count === 0)
+                @if ($country->states_count === 0 && $country->employee_count === 0)
                     <div class="m-2 p-2">
 
                         {{-- Form --}}
