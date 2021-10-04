@@ -23,9 +23,11 @@ class CountryController extends Controller
             $search = $request->search;
 
             $countryBuilder = Country::query()
+                ->withCount('states')
                 ->where('name', 'like', "%{$search}%");
         } else {
-            $countryBuilder = Country::query();
+            $countryBuilder = Country::query()
+                ->withCount('states');
         }
 
         $countries = $countryBuilder
@@ -75,11 +77,12 @@ class CountryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Country $country
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Country $country)
+    public function edit(int $id)
     {
+        $country = Country::withCount('states')->findOrFail($id);
         return view('countries.edit', compact('country'));
     }
 
@@ -103,12 +106,17 @@ class CountryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Country $country
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Country $country)
+    public function destroy(int $id)
     {
-        $country->delete();
-        return redirect()->route('countries.index')->with('message', 'Country Deleted Succesfully');
+        $country = Country::withCount('states')->findOrFail($id);
+
+        if ($country->states_count === 0) {
+            $country->delete();
+            return redirect()->route('countries.index')->with('message', 'Country Deleted Succesfully');
+        }
+        return redirect()->route('countries.index')->with('message', 'Could not delete country ' . $country->name);
     }
 }

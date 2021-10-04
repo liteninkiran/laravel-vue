@@ -74,11 +74,13 @@
                             </td>
 
                             <td>
-                                <form method="POST" action="{{ route('countries.destroy', $country->id) }}">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-danger">Delete</button>
-                                </form>
+                                @if ($country->states_count === 0)
+                                    <form method="POST" action="{{ route('countries.destroy', $country->id) }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-danger">Delete</button>
+                                    </form>
+                                @endif
                             </td>
 
 

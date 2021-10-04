@@ -92,21 +92,23 @@
                 </div>
 
                 {{-- Delete Record --}}
-                <div class="m-2 p-2">
+                @if ($country->states_count === 0)
+                    <div class="m-2 p-2">
 
-                    {{-- Form --}}
-                    <form method="POST" action="{{ route('countries.destroy', $country->id) }}">
+                        {{-- Form --}}
+                        <form method="POST" action="{{ route('countries.destroy', $country->id) }}">
 
-                        {{-- Tokens --}}
-                        @csrf
-                        @method('DELETE')
+                            {{-- Tokens --}}
+                            @csrf
+                            @method('DELETE')
 
-                        {{-- Submit Button --}}
-                        <button class="btn btn-danger">Delete {{ $country->country_code }}</button>
+                            {{-- Submit Button --}}
+                            <button class="btn btn-danger">Delete {{ $country->country_code }}</button>
 
-                    </form>
+                        </form>
 
-                </div>
+                    </div>
+                @endif
 
             </div>
 
