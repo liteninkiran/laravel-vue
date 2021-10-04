@@ -2,9 +2,18 @@
 
 @section('content')
 
-    <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">States</h1>
+    <div class="row">
+
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">States</h1>
+        </div>
+
+        {{-- Create Record --}}
+        <div class="ml-auto">
+            <a href="{{ route('states.create') }}" class="btn btn-primary mb-2">Create</a>
+        </div>
+
     </div>
 
     <div class="card mx-auto">
@@ -23,23 +32,45 @@
 
             <div class="row">
 
-                {{-- Search states --}}
+                {{-- Filters --}}
                 <div class="col">
+
                     <form method="GET" action="{{ route('states.index') }}">
-                        <div class="form-row align-items-center">
-                            <div class="col">
-                                <input type="search" name="search" class="form-control mb-2" id="inlineFormInput" placeholder="Search states" value="{{ $search }}">
+
+                        <div class="form-row">
+
+                            {{-- Country Drop-Down --}}
+                            <div class="col" style="flex: 5;">
+                                <select id="search_country" name="country_id" class="form-control" aria-label="Default select example">
+                                    <option {{ $country_id === null ? 'selected' : '' }} value="">Select Country</option>
+                                    @foreach ($countries as $country)
+                                        <option {{ $country_id === $country->id ? 'selected' : '' }} value="{{ $country->id }}">{{ $country->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
-                            <div class="col">
+
+                            {{-- Search State --}}
+                            <div class="col" style="flex: 5;">
+                                <input type="search" name="search" class="form-control mb-2" id="search_state" placeholder="Search states" value="{{ $search }}">
+                            </div>
+
+                            {{-- Submit Button --}}
+                            <div class="col" style="flex: 1.2;">
                                 <button type="submit" class="btn btn-primary mb-2">Search</button>
                             </div>
+
+                            {{-- Clear Form --}}
+                            <div class="col" style="flex: 1.2;">
+                                <button class="btn btn-primary mb-2" onclick="document.getElementById('search_country').value = ''; document.getElementById('search_state').value = null;">
+                                    CLEAR
+                                </button>
+                            </div>
+
+                            {{-- Spacing --}}
+                            <div style="flex: 10;">&nbsp;</div>
+
                         </div>
                     </form>
-                </div>
-
-                {{-- Create Record --}}
-                <div>
-                    <a href="{{ route('states.create') }}" class="btn btn-primary mb-2">Create</a>
                 </div>
 
             </div>

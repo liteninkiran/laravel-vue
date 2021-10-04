@@ -15,29 +15,25 @@ class StateController extends Controller {
      */
     public function index(Request $request) {
 
-        $search = $request->has('search') ? $request->search : '';
+        $countries = Country::query()
+            ->orderBy('name', 'asc')
+            ->get();
+
+        $search = $request->has('search') ? $request->search : null;
+        $country_id = $request->has('country_id') ? (int)$request->country_id : null;
 
         // Return requested state records
         $queryBuilder = State::query()
 
-        // Conditionally include WHERE clasue
+        // Conditionally search by State
         ->when($search, function($query) use ($search) {
+            return $query->where('states.name', 'like', "%{$search}%");
+        })
 
-            // Using orWhere requires grouping
-            return $query->where(function ($q) use ($search) {
-
-                    $q->query()
-                        // Check the state name
-                        ->where('states.name', 'like', "%{$search}%")
-
-                        // Check the country name
-                        ->orWhereExists(function($q2) use ($search) {
-                            $q2->selectRaw(1)
-                                ->from('countries')
-                                ->whereRaw("`countries`.`id` = `states`.`country_id` AND `countries`.`name` LIKE '%{$search}%'");
-                      });
-                });
-            })
+        // Conditionally search by Country
+        ->when($country_id, function($query) use ($country_id) {
+            return $query->where('country_id', '=', $country_id);
+        })
 
         // Join to countries to order properly
         ->join('countries', 'countries.id', '=', 'states.country_id')
@@ -53,7 +49,7 @@ class StateController extends Controller {
 
         $states = $queryBuilder->get();
 
-        return view('states.index', compact('states', 'search'));
+        return view('states.index', compact('states', 'search', 'countries', 'country_id'));
     }
 
     /**
