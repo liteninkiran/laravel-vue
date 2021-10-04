@@ -93,7 +93,10 @@ class CityController extends Controller
      */
     public function create() {
         $states = State::query()
-            ->orderBy('name', 'asc')
+            ->join('countries', 'countries.id', '=', 'states.country_id')
+            ->orderBy('countries.country_code', 'asc')
+            ->orderBy('states.name', 'asc')
+            ->select('states.*')
             ->get();
 
         return view('cities.create', compact('states'));
@@ -134,7 +137,10 @@ class CityController extends Controller
     public function edit($id)
     {
         $states = State::query()
-            ->orderBy('name', 'asc')
+            ->join('countries', 'countries.id', '=', 'states.country_id')
+            ->orderBy('countries.country_code', 'asc')
+            ->orderBy('states.name', 'asc')
+            ->select('states.*')
             ->get();
         $city = City::withCount('employees')->findOrFail($id);
         return view('cities.edit', compact('city', 'states'));

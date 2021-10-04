@@ -65,7 +65,7 @@
                                     <select name="state_id" class="form-control" aria-label="Default select example" required>
                                         <option selected disabled value="">Select State</option>
                                         @foreach ($states as $state)
-                                            <option {{ $city->state_id === $state->id ? 'selected' : '' }} value="{{ $state->id }}">{{ $state->name }}</option>
+                                            <option {{ $city->state_id === $state->id ? 'selected' : '' }} value="{{ $state->id }}">{{$state->name }} ({{ $state->country->country_code }})</option>
                                         @endforeach
                                     </select>
 
