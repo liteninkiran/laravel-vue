@@ -60,7 +60,7 @@ class CountryController extends Controller
             'country_code' => $request->country_code,
         ]);
 
-        return redirect()->route('countries.index')->with('message', 'Country Created Succesfully');
+        return redirect()->route('countries.index')->with('message', 'Country Created Successfully');
     }
 
     /**
@@ -100,7 +100,7 @@ class CountryController extends Controller
             'country_code' => $request->country_code,
         ]);
 
-        return redirect()->route('countries.index')->with('message', 'Country Updated Succesfully');
+        return redirect()->route('countries.index')->with('message', 'Country Updated Successfully');
     }
 
     /**
@@ -115,7 +115,7 @@ class CountryController extends Controller
 
         if ($country->states_count === 0) {
             $country->delete();
-            return redirect()->route('countries.index')->with('message', 'Country Deleted Succesfully');
+            return redirect()->route('countries.index')->with('message', 'Country Deleted Successfully');
         }
         return redirect()->route('countries.index')->with('message', 'Could not delete country ' . $country->name);
     }

@@ -68,7 +68,7 @@ class UserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        return redirect()->route('users.index')->with('message', 'User Register Succesfully');
+        return redirect()->route('users.index')->with('message', 'User Register Successfully');
     }
 
     /**
@@ -109,7 +109,7 @@ class UserController extends Controller
             'email' => $request->email,
         ]);
 
-        return redirect()->route('users.index')->with('message', 'User Updated Succesfully');
+        return redirect()->route('users.index')->with('message', 'User Updated Successfully');
     }
 
     /**
@@ -124,6 +124,6 @@ class UserController extends Controller
             return redirect()->route('users.index')->with('message', 'You are deleting yourself.');
         }
         $user->delete();
-        return redirect()->route('users.index')->with('message', 'User Deleted Succesfully');
+        return redirect()->route('users.index')->with('message', 'User Deleted Successfully');
     }
 }

@@ -78,7 +78,7 @@ class StateController extends Controller {
             'country_id' => $request->country_id,
         ]);
 
-        return redirect()->route('states.index')->with('message', 'State Created Succesfully');
+        return redirect()->route('states.index')->with('message', 'State Created Successfully');
     }
 
     /**
