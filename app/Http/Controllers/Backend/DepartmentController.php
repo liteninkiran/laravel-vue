@@ -60,37 +60,29 @@ class DepartmentController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
+    public function edit($id) {
+        $department = Department::withCount('employees')->findOrFail($id);
+        return view('departments.edit', compact('department'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Department $department
      * @return \Illuminate\Http\Response
      */
-    public function update(DepartmentUpdateRequest $request, $id)
-    {
-        //
+    public function update(DepartmentUpdateRequest $request, Department $department) {
+        $department->update([
+            'name' => $request->name,
+        ]);
+
+        return redirect()->route('departments.index')->with('message', 'Department Updated Successfully');
     }
 
     /**
