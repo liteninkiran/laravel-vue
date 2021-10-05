@@ -22,8 +22,6 @@
 
     <body id="page-top">
 
-        <div id="app"></div>
-
         <!-- Page Wrapper -->
         <div id="wrapper">
 
@@ -43,7 +41,7 @@
 
                 <!-- Employee Management -->
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('home') }}">
+                    <a class="nav-link" href="/employees">
                         <span>Employee Management</span>
                     </a>
                 </li>
